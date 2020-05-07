@@ -3,13 +3,42 @@
 <title>Register</title>
 
 {% block body %}
-    <h1>Register</h1>
+    {{ include('default/header.html.twig') }}
+    <h1>Регистрация</h1>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {% set formErrors = registrationForm.vars.errors.form.getErrors(true) %}
+        {% if formErrors|length %}
+            <div class="alert alert-danger">
+                <label>Исправте следующие ошибки:</label>
+                <ul>
+                    {% for error in formErrors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
-        <button type="submit" class="btn">Register</button>
+       <div class="registration-row">
+           {{ form_label(registrationForm.email) }}
+           {{ form_widget(registrationForm.email) }}
+       </div>
+        <div class="registration-row">
+            {{ form_label(registrationForm.name) }}
+            {{ form_widget(registrationForm.name) }}
+        </div>
+        <div class="registration-row">
+            {{ form_label(registrationForm.plainPassword.first) }}
+            {{ form_widget(registrationForm.plainPassword.first) }}
+        </div>
+        <div class="registration-row">
+            {{ form_label(registrationForm.plainPassword.second) }}
+            {{ form_widget(registrationForm.plainPassword.second) }}
+        </div>
+        <div class="registration-row">
+            {{ form_label(registrationForm.agreeTerms) }}
+            {{ form_widget(registrationForm.agreeTerms) }}
+        </div>
+        <button type="submit" class="btn">Зарегистрироваться</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

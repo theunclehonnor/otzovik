@@ -3,8 +3,16 @@
 
 namespace App\Controller\Main;
 
+use Symfony\Component\Routing\Annotation\Route;
 
-class AboutController
+class AboutController extends BaseController
 {
-
+    /**
+     * @Route("/about", name="about")
+     */
+    public function index()
+    {
+        $forRender = parent::renderDefault();
+        return $this->render('about/index.html.twig', $forRender);
+    }
 }

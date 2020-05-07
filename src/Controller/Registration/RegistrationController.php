@@ -19,6 +19,10 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
     {
+        if($this->getUser()){
+            return $this->redirectToRoute('about');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -34,6 +38,9 @@ class RegistrationController extends AbstractController
             $user->setRoles(["ROLE_USER"]);
 
             $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->getRepository(User::class)->findOneBy(
+//                ['name' => $form->get('name')->get()]
+//            );
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -43,7 +50,7 @@ class RegistrationController extends AbstractController
                 $user,
                 $request,
                 $authenticator,
-                'main' // firewall name in security.yaml
+                'about' // firewall name in security.yaml
             );
         }
 

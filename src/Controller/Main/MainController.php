@@ -5,14 +5,14 @@ namespace App\Controller\Main;
 
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends BaseController
+class MainController extends BaseController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="index")
      */
     public function index()
     {
         $forRender = parent::renderDefault();
-        return $this->render('main/index.html.twig', $forRender);
+        return $this->render('index.html.twig', $forRender);
     }
 }

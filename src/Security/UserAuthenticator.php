@@ -92,11 +92,8 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if ($token->getUser()->getRoles()==["ROLE_ADMIN"]) {
-            return new RedirectResponse($this->urlGenerator->generate('admin_home'));
-        } elseif ($token->getUser()->getRoles()==["ROLE_USER"]){
-            return new RedirectResponse($this->urlGenerator->generate('home'));
-        }
+        if ($token->getUser())
+            return new RedirectResponse($this->urlGenerator->generate('about'));
     }
 
     protected function getLoginUrl()
