@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('agreeTerms', CheckboxType::class, [
+            ->add('agreeTerms', RadioType::class, [
                 'mapped' => false,
                 'label' => 'Согласине на обработку персональных данных',
                 'constraints' => [

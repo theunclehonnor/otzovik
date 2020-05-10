@@ -13,6 +13,6 @@ class AboutController extends BaseController
     public function index()
     {
         $forRender = parent::renderDefault();
-        return $this->render('about/index.html.twig', $forRender);
+        return $this->render('about/about.html.twig', $forRender);
     }
 }

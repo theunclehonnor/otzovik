@@ -1,0 +1,46 @@
+/*Main*/
+.default_font {
+    font-size: 25px;
+}
+.error_font{
+    font-size: 1rem;
+}
+.logo_font {
+    font-size: 30px;
+}
+.main{
+    background-color: rgba(52,58,64, 0.9);
+}
+.container_optimalHeight{
+    min-height: 88.5vh;
+}
+.logo_red{
+    color: red;
+}
+.text_opacity{
+    font-style: italic;
+    color: rgba(255,255,255, 0.70);
+    text-shadow: -4px 2px 1px rgba(0, 0, 0, 0.45);
+}
+.img_height{
+    height: 88.2vh;
+    width: 100vw;
+}
+
+/*Button*/
+.btn_style{
+    border-radius: 20px;
+}
+
+/*login and register*/
+.input_width{
+    width: 350px;
+}
+.label_width{
+    width: 125px;
+}
+
+/*About*/
+.about_carousel{
+    box-shadow: -35px 26px 24px rgba(0, 0, 0, 0.30);
+}
