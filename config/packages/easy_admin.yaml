@@ -1,0 +1,17 @@
+easy_admin:
+    user:
+        display_name: true
+        display_avatar: true
+        name_property_path: 'fullName'
+    entities:
+        # List the entity class name you want to manage
+        Product:
+            class: App\Entity\Product
+            list:
+                fields: ['title', 'text', 'category', 'create_at', 'update_at', { property: 'image', type: 'image', label: 'image', base_path: '%app.path.product_images%'}, 'is_published']
+            show:
+                fields: ['title', 'text', 'category', 'create_at', 'update_at', { property: 'image', type: 'image', label: 'image', base_path: '%app.path.product_images%'}, 'is_published']
+            form:
+                fields: ['title', 'text', 'category', 'create_at', 'update_at', { property: 'imageFile', type: 'vich_image'}, 'is_published']
+        Category:
+            class: App\Entity\Category

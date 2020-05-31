@@ -4,32 +4,44 @@
     {{ include('default/header.html.twig') }}
 {#    block-main#}
     <div class="container">
-        <div class="row justify-content-center">
-            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="{{ asset('assets/main/img/faq-2643072_1920.jpg') }}" class="img_height" alt="faq">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h1 class="display-3 text_opacity">Главная, на которой будут объекты</h1>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('assets/main/img/objects-731426_1920.jpg') }}" class="img_height" alt="object">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('assets/main/img/philatelist-1844080_1920.jpg') }}" class="img_height" alt="book">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+        <div class="row mt-5 mb-3 justify-content-center">
+            <h1 class="display-4 text-light">
+                <span class="logo_red">В</span>се продукты
+            </h1>
         </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Create_at</th>
+                <th>Update_at</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for prod in products %}
+                <tr>
+                    <td>{{ prod.id }}</td>
+                    <td>{{ prod.title }}</td>
+                    <td>{{ prod.text }}</td>
+                    <td>{{ prod.createAt ? prod.createAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ prod.updateAt ? prod.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td><img src="{{ asset('assets/main/img/uploads/' ~ prod.image) }}" width="100px" height="100px"></td>
+                    <td>
+                        <a href="{{ path('product_show', {'id': prod.id}) }}">show</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {#    footer#}
     {{ include('default/footer.html.twig') }}

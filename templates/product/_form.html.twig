@@ -1,0 +1,52 @@
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="btn">{{ button_label|default('Сохранить') }}</button>#}
+{#{{ form_end(form) }}#}
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавить продукт{% endblock %}
+
+{% block body %}
+    {#    header#}
+    {{ include('default/header.html.twig') }}
+    {#    block-register#}
+    <div class="d-flex container container_optimalHeight align-items-center">
+        <div class="d-flex container-fluid justify-content-center h-70">
+            {{ form_start(productForm, { 'attr': {'class': 'd-flex flex-column w-50 justify-content-center'} }) }}
+            <h1 class="h1 mb-5 font-weight-normal text-center text-light"><span class="logo_red">Д</span>обавить продукт для рассмотрения</h1>
+            {% set formErrors = productForm.vars.errors.form.getErrors(true) %}
+            {% if formErrors|length %}
+                <div class="alert alert-danger">
+                    <label>Исправте следующие ошибки:</label>
+                    <ul>
+                        {% for error in formErrors %}
+                            <li>{{ error.message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="row mb-3 d-flex justify-content-around">
+                {{ form_label(productForm.title, productForm.title, { 'label_attr': {'class': 'text-light text-center label_width_product'} }) }}
+                {{ form_widget(productForm.title, { 'attr': {'class': 'input_width form-control'} }) }}
+            </div>
+            <div class="row mb-3 d-flex justify-content-around">
+                {{ form_label(productForm.category, productForm.category, { 'label_attr': {'class': 'text-light text-center label_width_product'} }) }}
+                {{ form_widget(productForm.category, { 'attr': {'class': 'input_width form-control'} }) }}
+            </div>
+            <div class="row mb-3 d-flex justify-content-around">
+                {{ form_label(productForm.text, productForm.text, { 'label_attr': {'class': 'text-light text-center label_width_product'} }) }}
+                {{ form_widget(productForm.text, { 'attr': {'class': 'input_width form-control'} }) }}
+            </div>
+            <div class="row mb-3 d-flex justify-content-around">
+                {{ form_label(productForm.image, productForm.image, { 'label_attr': {'class': 'text-light'} }) }}
+                {{ form_widget(productForm.image) }}
+            </div>
+            <div class="row justify-content-center mt-3">
+                <button class="btn btn-lg btn-dark col-6 btn_style">{{ button_label|default('Добавить') }}</button>
+            </div>
+            {{ form_end(productForm) }}
+        </div>
+    </div>
+    {#    footer#}
+    {{ include('default/footer.html.twig') }}
+{% endblock %}

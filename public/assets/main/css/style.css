@@ -44,3 +44,8 @@
 .about_carousel{
     box-shadow: -35px 26px 24px rgba(0, 0, 0, 0.30);
 }
+
+/*AddProduct*/
+.label_width_product{
+    width: 200px;
+}

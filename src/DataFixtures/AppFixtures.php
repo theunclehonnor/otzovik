@@ -16,7 +16,6 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager)
     {
-        // Пытался я тут настроить шифрование с UserPasswordEncoderInterface, но так и не вышло
         // Create Admin
          $admin = new User();
          $admin->setEmail('admin@mail.ru');
