@@ -22,27 +22,27 @@ class Comment
      */
     private $text;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $product;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $create_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $_user;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $estimate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="comments")
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     */
+    private $_user;
 
     public function getId(): ?int
     {
@@ -57,18 +57,6 @@ class Comment
     public function setText(string $text): self
     {
         $this->text = $text;
-
-        return $this;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
 
         return $this;
     }
@@ -93,19 +81,7 @@ class Comment
     public function __construct()
     {
         $this->create_at = new \DateTime();
-        $this->_user = $this->getUser();
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->_user;
-    }
-
-    public function setUser(?User $_user): self
-    {
-        $this->_user = $_user;
-
-        return $this;
+        //$this->_user = $this->getUser();
     }
 
     public function getEstimate(): ?int
@@ -116,6 +92,30 @@ class Comment
     public function setEstimate(int $estimate): self
     {
         $this->estimate = $estimate;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->_user;
+    }
+
+    public function setUser(?User $_user): self
+    {
+        $this->_user = $_user;
 
         return $this;
     }
