@@ -34,9 +34,15 @@ class Comment
     private $create_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $update_at;
+    private $_user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $estimate;
 
     public function getId(): ?int
     {
@@ -84,19 +90,32 @@ class Comment
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function __construct()
     {
-        return $this->update_at;
+        $this->create_at = new \DateTime();
+        $this->_user = $this->getUser();
     }
 
-    public function setUpdateAtValue()
+    public function getUser(): ?User
     {
-        $this->update_at = new \DateTime();
+        return $this->_user;
     }
 
-    public function setUpdateAt(\DateTimeInterface $update_at): self
+    public function setUser(?User $_user): self
     {
-        $this->update_at = $update_at;
+        $this->_user = $_user;
+
+        return $this;
+    }
+
+    public function getEstimate(): ?int
+    {
+        return $this->estimate;
+    }
+
+    public function setEstimate(int $estimate): self
+    {
+        $this->estimate = $estimate;
 
         return $this;
     }

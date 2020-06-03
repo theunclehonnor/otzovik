@@ -65,6 +65,9 @@ class Product
      * @param mixed $imageFile
      * @throws \Exception
      */
+
+    private $avarageEstimate;
+
     public function setImageFile($imageFile): void
     {
         $this->imageFile = $imageFile;
@@ -196,4 +199,23 @@ class Product
     {
         $this->is_published = self::DRAFT;
     }
+
+    public function __construct()
+    {
+        $this->create_at = new \DateTime();
+        $this->update_at = new \DateTime();
+    }
+
+
+    public function getAvarageEstimate()
+    {
+        return $this->avarageEstimate;
+    }
+
+
+    public function setAvarageEstimate($avarageEstimate): void
+    {
+        $this->avarageEstimate = $avarageEstimate;
+    }
+
 }

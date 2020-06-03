@@ -9,42 +9,32 @@
                 <span class="logo_red">В</span>се продукты
             </h1>
         </div>
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Text</th>
-                <th>Create_at</th>
-                <th>Update_at</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for prod in products %}
-                <tr>
-                    <td>{{ prod.id }}</td>
-                    <td>{{ prod.title }}</td>
-                    <td>{{ prod.text }}</td>
-                    <td>{{ prod.createAt ? prod.createAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ prod.updateAt ? prod.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td><img src="{{ asset('assets/main/img/uploads/' ~ prod.image) }}" width="100px" height="100px"></td>
-                    <td>
-                        <a href="{{ path('product_show', {'id': prod.id}) }}">show</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="7">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="container">
+            <div class="d-flex justify-content-start flex-wrap">
+                {% for prod in products %}
+                    <div class="card ml-3 mt-3" style="width: 18rem;">
+                        {% if prod.image %}
+                            <img src="{{ asset('assets/main/img/uploads/' ~ prod.image) }}" width="286" height="286" class="card-img-top" alt="Картинка продукта">
+                        {% else %}
+                            <img src="{{ asset('assets/main/img/uploads/photo-poster.jpg') }}" class="card-img-top" alt="Картинка продукта">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate">{{ prod.title }}</h5>
+                            <h6 class="card-title text-truncate">Категория: {{ prod.category.title }}</h6>
+                            <div class="d-flex align-items-center">
+                                <i class="far fa-star fa-2x"></i>
+                                <p class="ml-2 default_font" style="margin: 0">{{ prod.avarageEstimate }}</p>
+                            </div>
+                            <p class="card-text">{{ prod.createAt ? prod.createAt|date('Y-m-d H:i:s') : '' }}</p>
+                            <a href="{{ path('product_show', {'id': prod.id}) }}" class="btn btn-primary stretched-link">Перейти</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <h2 class="text-center">Нету продуктов</h2>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-{#    footer#}
-    {{ include('default/footer.html.twig') }}
 {% endblock %}
 {% block javascripts %}
     {{ include('default/scripts.html.twig') }}

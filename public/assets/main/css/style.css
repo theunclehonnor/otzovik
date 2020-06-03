@@ -8,6 +8,10 @@
 .logo_font {
     font-size: 30px;
 }
+.font_product {
+    color: red;
+    text-shadow: -4px 2px 1px rgba(0, 0, 0, 0.45);
+}
 .main{
     background-color: rgba(52,58,64, 0.9);
 }
@@ -48,4 +52,27 @@
 /*AddProduct*/
 .label_width_product{
     width: 200px;
+}
+
+/*Product*/
+.background_style_block{
+    background-color: rgba(255,255,255,0.5);
+    padding: 15px;
+    border-radius: 5px;
+    text-align: justify;
+}
+.background_style_block_item{
+    background-color: rgba(255,255,255,0.5);
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 5px;
+}
+.background_color_white{
+    background-color: rgba(255,255,255,0.2);
+    padding: 5px;
+    border-radius: 5px;
+}
+.hidden_estimate{
+    display: none;
+    overflow: hidden;
 }

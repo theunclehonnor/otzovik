@@ -12,6 +12,30 @@ easy_admin:
             show:
                 fields: ['title', 'text', 'category', 'create_at', 'update_at', { property: 'image', type: 'image', label: 'image', base_path: '%app.path.product_images%'}, 'is_published']
             form:
-                fields: ['title', 'text', 'category', 'create_at', 'update_at', { property: 'imageFile', type: 'vich_image'}, 'is_published']
+                fields: ['title', 'text', 'category', { property: 'imageFile', type: 'vich_image'}, 'is_published']
+            edit:
+                fields:
+                    - update_at
         Category:
             class: App\Entity\Category
+            form:
+                fields:
+                    - title
+            edit:
+                fields:
+                    - update_at
+        User:
+            class: App\Entity\User
+            form:
+                fields:
+                    - name
+                    - email
+        Comment:
+            class: App\Entity\Comment
+            list:
+                fields: ['id', 'create_at', 'estimate', 'text', 'product', 'user.name']
+            form:
+                fields:
+                    - text
+                    - product
+                    - { property: 'estimate', type: 'integer', type_options: { attr: {value: '', min: 1, max: 5}}}

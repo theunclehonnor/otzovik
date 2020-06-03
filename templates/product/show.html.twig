@@ -3,40 +3,83 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ product.title }}</td>
-            </tr>
-            <tr>
-                <th>Text</th>
-                <td>{{ product.text }}</td>
-            </tr>
-            <tr>
-                <th>Create_at</th>
-                <td>{{ product.createAt ? product.createAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Update_at</th>
-                <td>{{ product.updateAt ? product.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('product_index') }}">back to list</a>
-
-    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-
-    {{ include('product/_delete_form.html.twig') }}
+{#    footer#}
+{{ include('default/header.html.twig') }}
+{#    block-main#}
+<div class="container pt-5">
+    <h1 class="h1 mb-3 font-weight-normal text-center font_product">{{ product.title }}</h1>
+    
+    <div class="d-flex justify-content-center">
+        <div class="ml-3 col-9">
+            <p class="text-center text-light logo_font">Категория - {{ product.category }}</p>
+            <p class="text-center text-light logo_font">Описание</p>
+            <div class="d-flex justify-content-around">
+                {% if product.image %}
+                    <img src="{{ asset('assets/main/img/uploads/' ~ product.image) }}" alt="Картинка продукта" width="450" height="550">
+                {% else %}
+                    <img src="{{ asset('assets/main/img/uploads/photo-poster.jpg') }}" alt="Картинка продукта" width="450" height="550">
+                {% endif %}
+                <div class="col-12 ml-3">
+                    <div class="overflow-auto text-light default_font background_style_block">{{ product.text }}</div>
+                    <p class="text-light background_style_block_item mt-2 mb-0">Дата публикации: {{ product.createAt ? product.createAt|date('Y-m-d H:i:s') : ''}}</p>
+                    <p class="text-light background_style_block_item mt-2">Средняя оценка: <i class="far fa-star fa-1x mr-1"></i>{{ product.avarageEstimate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column">
+        <h2 class="h1 mb-3 font-weight-normal text-center text-light"><span class="logo_red">О</span>тзывы пользователей</h2>
+        {# Комментарии#}
+        {% for com in comments %}
+        <div class="media background_color_white mb-2">
+            <div class="media-body">
+                <h5 class="mt-0 text-light">{{ com.user.name }}</h5>
+                <p class="text-light">{{ com.createAt ? com.createAt|date('Y-m-d H:i:s') : ''  }}</p>
+                <p class="overflow-auto text-light background_color">{{ com.text }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {# Форма с комментариями#}
+        {% if app.user %}
+            {{ form_start(commentForm) }}
+                <div class="form-group">
+                    {{ form_label(commentForm.text, commentForm.text, { 'label_attr': {'class': 'default_font text-light'} }) }}
+                    <div class="row ml-2 mb-2">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" value="1">
+                            <label class="custom-control-label text-light" for="customRadioInline1">1</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" value="2">
+                            <label class="custom-control-label text-light" for="customRadioInline2">2</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input" value="3">
+                            <label class="custom-control-label text-light" for="customRadioInline3">3</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline4" name="customRadioInline1" class="custom-control-input" value="4">
+                            <label class="custom-control-label text-light" for="customRadioInline4">4</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline5" name="customRadioInline1" class="custom-control-input" value="5">
+                            <label class="custom-control-label text-light" for="customRadioInline5">5</label>
+                        </div>
+                        {{ form_widget(commentForm.estimate, { 'attr': {'class': 'hidden_estimate'} }) }}
+                    </div>
+                    {{ form_widget(commentForm.text, { 'attr': {'class': 'form-control', 'rows': 3} }) }}
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <button id="submitProduct" class="btn btn-lg btn-dark col-6 btn_style mb-2" type="submit">
+                        Отправить
+                    </button>
+                </div>
+            {{ form_end(commentForm) }}
+        {% endif %}
+    </div>
+</div>
+{% block javascripts %}
+    {{ include('default/scripts.html.twig') }}
+    <script src="{{ asset('assets/main/js/estimate.js') }}"></script>
+{% endblock %}
 {% endblock %}

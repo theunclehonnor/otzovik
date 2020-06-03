@@ -87,4 +87,10 @@ class Category
     {
         return $this->title;
     }
+
+    public function __construct()
+    {
+        $this->create_at = new \DateTime();
+        $this->update_at = new \DateTime();
+    }
 }
