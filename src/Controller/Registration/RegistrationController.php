@@ -17,7 +17,12 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        UserAuthenticator $authenticator
+    ): Response
     {
         if($this->getUser()){
             return $this->redirectToRoute('about');
@@ -38,9 +43,6 @@ class RegistrationController extends AbstractController
             $user->setRoles(["ROLE_USER"]);
 
             $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->getRepository(User::class)->findOneBy(
-//                ['name' => $form->get('name')->get()]
-//            );
             $entityManager->persist($user);
             $entityManager->flush();
 

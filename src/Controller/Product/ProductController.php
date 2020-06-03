@@ -82,7 +82,9 @@ class ProductController extends AbstractController
         $product = $this->getDoctrine()->getRepository(Product::class)->find($request->get('id'));
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(['product' => $product->getId()], ['create_at' =>'ASC']);
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(
+            ['product' => $product->getId()], ['create_at' =>'ASC']
+        );
         $product->setAvarageEstimate($this->generateTotal($product->getId()));
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreateAtValue();
@@ -95,10 +97,6 @@ class ProductController extends AbstractController
 
             return $this->redirect('/product/' . $product->getId());
         }
-//        $conn = $this->getDoctrine()->getConnection();
-//        $stmt = $conn->prepare('SELECT c.id, c.product_id, c.text, c.create_at, c._user_id   FROM product p INNER JOIN comment c ON c.product_id = p.id WHERE p.id = :id');
-//        $stmt->execute(['id' => $product->getId()]);
-
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
@@ -119,7 +117,9 @@ class ProductController extends AbstractController
     // Средняя оценка
     private function generateTotal($idProduct): float
     {
-        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(['product' => $idProduct], ['create_at' =>'ASC']);
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(
+            ['product' => $idProduct], ['create_at' =>'ASC']
+        );
         $averageEstimate = 0;
         if($comments) {
             foreach ($comments as $comment) {
