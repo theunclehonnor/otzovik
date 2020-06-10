@@ -22,7 +22,8 @@
                 <div class="col-12 ml-3">
                     <div class="overflow-auto text-light default_font background_style_block">{{ product.text }}</div>
                     <p class="text-light background_style_block_item mt-2 mb-0">Дата публикации: {{ product.createAt ? product.createAt|date('Y-m-d H:i:s') : ''}}</p>
-                    <p class="text-light background_style_block_item mt-2">Средняя оценка: <i class="far fa-star fa-1x mr-1"></i>{{ product.avarageEstimate}}</p>
+                    <p class="text-light background_style_block_item mt-2 mb-0">Средняя оценка: <i class="far fa-star fa-1x mr-1"></i>{{ product.avarageEstimate}}</p>
+                    <p class="text-light background_style_block_item mt-2">Количество проголосовавших: <i class="far fa-user fa-1x mr-1"></i>{{ product.lenComments}}</p>
                 </div>
             </div>
         </div>

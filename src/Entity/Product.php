@@ -57,13 +57,13 @@ class Product
      */
     private $imageFile;
 
+    private $avarageEstimate;
+
+    private $lenComments;
     /**
      * @param mixed $imageFile
      * @throws \Exception
      */
-
-    private $avarageEstimate;
-
     public function setImageFile($imageFile): void
     {
         $this->imageFile = $imageFile;
@@ -255,6 +255,17 @@ class Product
         }
 
         return $this;
+    }
+
+    public function getLenComments()
+    {
+        return $this->lenComments;
+    }
+
+
+    public function setLenComments($lenComments): void
+    {
+        $this->lenComments = $lenComments;
     }
 
 }

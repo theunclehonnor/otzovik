@@ -27,7 +27,9 @@ class ProductController extends AbstractController
     {
         $allProducts = $productRepository->findBy(['is_published' => Product::PUBLISHED], ['create_at' =>'DESC']);
         foreach ($allProducts as $product) {
-            $product->setAvarageEstimate($this->generateTotal($product->getId()));
+            $temp = $this->generateTotal($product->getId());
+            $product->setAvarageEstimate($temp[0]);
+            $product->setLenComments($temp[1]);
         }
         return $this->render('index.html.twig', [
             'products' => $allProducts
@@ -85,7 +87,9 @@ class ProductController extends AbstractController
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(
             ['product' => $product->getId()], ['create_at' =>'ASC']
         );
-        $product->setAvarageEstimate($this->generateTotal($product->getId()));
+        $temp = $this->generateTotal($product->getId());
+        $product->setAvarageEstimate($temp[0]);
+        $product->setLenComments($temp[1]);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreateAtValue();
             $comment->setUser($this->getUser());
@@ -115,20 +119,22 @@ class ProductController extends AbstractController
         return md5(uniqid());
     }
     // Средняя оценка
-    private function generateTotal($idProduct): float
+    private function generateTotal($idProduct): array
     {
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(
             ['product' => $idProduct], ['create_at' =>'ASC']
         );
         $averageEstimate = 0;
+        $lenComments = 0;
         if($comments) {
             foreach ($comments as $comment) {
                 $averageEstimate = $averageEstimate + $comment->getEstimate();
+                $lenComments+=1;
             }
             $averageEstimate = round($averageEstimate / count($comments) , 2);
         } else
             $averageEstimate = 0;
-        return $averageEstimate;
+        return [$averageEstimate, $lenComments];
     }
 
 //    /**

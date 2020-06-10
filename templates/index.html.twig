@@ -24,6 +24,8 @@
                             <div class="d-flex align-items-center">
                                 <i class="far fa-star fa-2x"></i>
                                 <p class="ml-2 default_font" style="margin: 0">{{ prod.avarageEstimate }}</p>
+                                <i class="ml-3 far fa-user fa-2x"></i>
+                                <p class="ml-2 default_font" style="margin: 0">{{ prod.lenComments }}</p>
                             </div>
                             <p class="card-text">{{ prod.createAt ? prod.createAt|date('Y-m-d H:i:s') : '' }}</p>
                             <a href="{{ path('product_show', {'id': prod.id}) }}" class="btn btn-primary stretched-link">Перейти</a>
